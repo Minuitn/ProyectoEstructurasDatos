@@ -1,5 +1,7 @@
 package envíapack;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author melic
@@ -7,12 +9,36 @@ package envíapack;
 public class AsignarDestino extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AsignarDestino.class.getName());
+    private ListaGuia listaGuias;
+    private ListaDistribucion listaDistribucion;
     private Menu menu;
     /**
      * Creates new form AsignarDestino
      */
     public AsignarDestino() {
         initComponents();
+    }
+    
+    public AsignarDestino(ListaGuia listaGuias, ListaDistribucion listaDistribucion, Menu menu) {
+        initComponents();
+        this.listaGuias = listaGuias;
+        this.listaDistribucion = listaDistribucion;
+        this.menu = menu;
+        cargarComboGuias();
+        cargarDistribucion();
+    }
+    
+    private void cargarComboGuias(){
+        cmbPaquete.removeAllItems();
+        NodoGuia aux = listaGuias.getInicio();
+        while (aux != null){
+            cmbPaquete.addItem("Guía #" + aux.getDato().getNumeroGuia() + " | " + aux.getDato().getDescripcion());
+            aux = aux.getSiguiente();
+        }
+    }
+    
+    private void cargarDistribucion(){
+        txaDistribucion.setText(listaDistribucion.toString());
     }
 
     /**
@@ -28,12 +54,16 @@ public class AsignarDestino extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnAsignar = new javax.swing.JButton();
-        txtDestino = new javax.swing.JTextField();
-        txtFecha = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        txtCiudad = new javax.swing.JTextField();
+        txtFechaEntrega = new javax.swing.JTextField();
+        fecha = new javax.swing.JLabel();
         btnVolver = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         cmbPaquete = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txaDistribucion = new javax.swing.JTextArea();
+        direccion = new javax.swing.JLabel();
+        txtDireccion = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -46,7 +76,7 @@ public class AsignarDestino extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel2.setText("Destino:");
+        jLabel2.setText("Ciudad:");
 
         btnAsignar.setBackground(new java.awt.Color(0, 204, 102));
         btnAsignar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -58,17 +88,17 @@ public class AsignarDestino extends javax.swing.JFrame {
             }
         });
 
-        txtDestino.setBackground(new java.awt.Color(229, 229, 229));
-        txtDestino.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtDestino.setForeground(new java.awt.Color(51, 51, 51));
+        txtCiudad.setBackground(new java.awt.Color(229, 229, 229));
+        txtCiudad.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtCiudad.setForeground(new java.awt.Color(51, 51, 51));
 
-        txtFecha.setBackground(new java.awt.Color(229, 229, 229));
-        txtFecha.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtFecha.setForeground(new java.awt.Color(51, 51, 51));
+        txtFechaEntrega.setBackground(new java.awt.Color(229, 229, 229));
+        txtFechaEntrega.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtFechaEntrega.setForeground(new java.awt.Color(51, 51, 51));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel3.setText("Fecha de Entrega:");
+        fecha.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        fecha.setForeground(new java.awt.Color(0, 0, 102));
+        fecha.setText("Fecha de Entrega:");
 
         btnVolver.setBackground(new java.awt.Color(204, 0, 51));
         btnVolver.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -89,66 +119,90 @@ public class AsignarDestino extends javax.swing.JFrame {
         cmbPaquete.setForeground(new java.awt.Color(51, 51, 51));
         cmbPaquete.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        txaDistribucion.setBackground(new java.awt.Color(220, 220, 220));
+        txaDistribucion.setColumns(20);
+        txaDistribucion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txaDistribucion.setForeground(new java.awt.Color(51, 51, 51));
+        txaDistribucion.setRows(5);
+        jScrollPane1.setViewportView(txaDistribucion);
+
+        direccion.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        direccion.setForeground(new java.awt.Color(0, 0, 102));
+        direccion.setText("Direccion:");
+
+        txtDireccion.setBackground(new java.awt.Color(229, 229, 229));
+        txtDireccion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtDireccion.setForeground(new java.awt.Color(51, 51, 51));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(172, 172, 172)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnAsignar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(172, 172, 172))
+                .addGap(188, 188, 188))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(71, 71, 71)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtDestino)
-                    .addComponent(txtFecha)
-                    .addComponent(cmbPaquete, 0, 300, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 485, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(fecha)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(direccion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtCiudad)
+                            .addComponent(cmbPaquete, 0, 346, Short.MAX_VALUE)
+                            .addComponent(txtDireccion)
+                            .addComponent(txtFechaEntrega))))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(46, 46, 46)
                 .addComponent(jLabel1)
-                .addGap(48, 48, 48)
+                .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(cmbPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(txtCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                    .addComponent(direccion)
+                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(fecha)
+                    .addComponent(txtFechaEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAsignar, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(51, 51, 51))
+                .addGap(21, 21, 21))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -160,7 +214,25 @@ public class AsignarDestino extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarActionPerformed
-        // TODO add your handling code here:
+        int index = cmbPaquete.getSelectedIndex();
+        if (index == -1) {
+            JOptionPane.showMessageDialog(null, "Debe de seleccionar una guía.");
+            return;
+        }
+        NodoGuia aux = listaGuias.getInicio();
+        for (int i = 0; i < index; i++) {
+            aux = aux.getSiguiente();
+        }
+        GuiaEnvio guia = aux.getDato();
+        Distribucion d = new Distribucion(guia, txtCiudad.getText(), txtDireccion.getText(), txtFechaEntrega.getText());
+        listaDistribucion.insertar(d);
+        JOptionPane.showMessageDialog(null, "Destino y fecha han sido asignados!");
+        listaGuias.eliminar(index);
+        txtCiudad.setText("");
+        txtDireccion.setText("");
+        txtFechaEntrega.setText("");
+        cargarDistribucion();
+        cargarComboGuias();
     }//GEN-LAST:event_btnAsignarActionPerformed
 
     /**
@@ -192,12 +264,16 @@ public class AsignarDestino extends javax.swing.JFrame {
     public javax.swing.JButton btnAsignar;
     public javax.swing.JButton btnVolver;
     public javax.swing.JComboBox<String> cmbPaquete;
+    public javax.swing.JLabel direccion;
+    public javax.swing.JLabel fecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    public javax.swing.JTextField txtDestino;
-    public javax.swing.JTextField txtFecha;
+    private javax.swing.JScrollPane jScrollPane1;
+    public javax.swing.JTextArea txaDistribucion;
+    public javax.swing.JTextField txtCiudad;
+    public javax.swing.JTextField txtDireccion;
+    public javax.swing.JTextField txtFechaEntrega;
     // End of variables declaration//GEN-END:variables
 }

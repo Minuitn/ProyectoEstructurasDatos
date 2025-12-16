@@ -1,5 +1,7 @@
 package envíapack;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author melic
@@ -15,6 +17,18 @@ public class DesencolarPaquete extends javax.swing.JFrame {
     public DesencolarPaquete() {
         initComponents();
     }
+    
+     public DesencolarPaquete(ColaPaquete cola, Menu menu) {
+        initComponents();
+        this.cola = cola;
+        this.menu = menu;
+        cargarCola();
+    }
+     
+    private void cargarCola(){
+        txaPaquetesCola.setText(cola.toString());
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -123,7 +137,14 @@ public class DesencolarPaquete extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDesencolarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesencolarActionPerformed
-        // TODO add your handling code here:
+        if (cola.vacia()) {
+            JOptionPane.showMessageDialog(null, "No hay paquetes en la cola de envío");
+            return;
+        }
+        
+        Paquete p = cola.desencolar();
+        JOptionPane.showMessageDialog(null, "Paquete desencolado!");
+        cargarCola();
     }//GEN-LAST:event_btnDesencolarActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed

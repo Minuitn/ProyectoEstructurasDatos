@@ -15,7 +15,7 @@ public class Menu extends javax.swing.JFrame {
     private PilaPaquete pila;
     private ColaPaquete cola;
     private ListaGuia listaGuias;
-    private ListaDobleGuia listaDistribucion;
+    private ListaDistribucion listaDistribucion;
     
     public Menu() {
         initComponents();
@@ -23,7 +23,7 @@ public class Menu extends javax.swing.JFrame {
         pila = new PilaPaquete();
         cola = new ColaPaquete();
         listaGuias = new ListaGuia();
-        listaDistribucion = new ListaDobleGuia();
+        listaDistribucion = new ListaDistribucion();
     }
 
     /**
@@ -225,7 +225,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVerApiladosActionPerformed
 
     private void btnAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarActionPerformed
-        AsignarDestino frm = new AsignarDestino();
+        AsignarDestino frm = new AsignarDestino(listaGuias, listaDistribucion, this);
         frm.setVisible(true);
         frm.setLocationRelativeTo(null);
         this.setVisible(false);
@@ -257,14 +257,14 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVerColaActionPerformed
 
     private void btnDesencolarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesencolarActionPerformed
-        DesencolarPaquete frm = new DesencolarPaquete();
+        DesencolarPaquete frm = new DesencolarPaquete(cola, this);
         frm.setVisible(true);
         frm.setLocationRelativeTo(null);
         this.setVisible(false);
     }//GEN-LAST:event_btnDesencolarActionPerformed
 
     private void btnGuiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuiaActionPerformed
-        GenerarGuías frm = new GenerarGuías();
+        GenerarGuías frm = new GenerarGuías(cola, listaGuias, this);
         frm.setVisible(true);
         frm.setLocationRelativeTo(null);
         this.setVisible(false);

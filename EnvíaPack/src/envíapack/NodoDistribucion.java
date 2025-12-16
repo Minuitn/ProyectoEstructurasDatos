@@ -6,19 +6,19 @@ package envíapack;
  */
 public class NodoDistribucion {
     
-    private GuiaEnvio dato;
+    private Distribucion dato;
     private NodoDistribucion siguiente;
     private NodoDistribucion anterior;
 
-    public NodoDistribucion(GuiaEnvio dato) {
+    public NodoDistribucion(Distribucion dato) {
         this.dato = dato;
     }
 
-    public GuiaEnvio getDato() {
+    public Distribucion getDato() {
         return dato;
     }
 
-    public void setDato(GuiaEnvio dato) {
+    public void setDato(Distribucion dato) {
         this.dato = dato;
     }
 

@@ -1,5 +1,7 @@
 package envíapack;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author melic
@@ -7,6 +9,8 @@ package envíapack;
 public class GenerarGuías extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GenerarGuías.class.getName());
+    private ColaPaquete cola;
+    private ListaGuia listaGuias;
     private Menu menu;
     /**
      * Creates new form GenerarGuías
@@ -14,7 +18,17 @@ public class GenerarGuías extends javax.swing.JFrame {
     public GenerarGuías() {
         initComponents();
     }
-
+    
+    public GenerarGuías(ColaPaquete cola, ListaGuia listaGuias, Menu menu) {
+        initComponents();
+        this.cola = cola;
+        this.listaGuias = listaGuias;
+        this.menu = menu;
+        cargarGuias();
+    }
+    private void cargarGuias(){
+        txaGuias.setText(listaGuias.toString());
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,6 +44,8 @@ public class GenerarGuías extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txaGuias = new javax.swing.JTextArea();
         btnGenerarGuia = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        txtFecha = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,7 +66,7 @@ public class GenerarGuías extends javax.swing.JFrame {
             }
         });
 
-        txaGuias.setBackground(new java.awt.Color(229, 229, 229));
+        txaGuias.setBackground(new java.awt.Color(234, 234, 234));
         txaGuias.setColumns(20);
         txaGuias.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txaGuias.setForeground(new java.awt.Color(51, 51, 51));
@@ -67,6 +83,15 @@ public class GenerarGuías extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel2.setText("Fecha de Generación:");
+
+        txtFecha.setBackground(new java.awt.Color(234, 234, 234));
+        txtFecha.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtFecha.setForeground(new java.awt.Color(51, 51, 51));
+        txtFecha.setText("dd/mm/aaaa");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -76,25 +101,34 @@ public class GenerarGuías extends javax.swing.JFrame {
                 .addContainerGap(47, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(48, 48, 48))
+                        .addComponent(btnGenerarGuia, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(102, 102, 102))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnGenerarGuia)
-                        .addGap(44, 44, 44)
-                        .addComponent(btnVolver)
-                        .addGap(132, 132, 132))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtFecha))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(48, 48, 48))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addComponent(jLabel1)
-                .addGap(70, 70, 70)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnVolver)
-                    .addComponent(btnGenerarGuia))
+                    .addComponent(jLabel2)
+                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGenerarGuia, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30))
         );
 
@@ -118,7 +152,20 @@ public class GenerarGuías extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnGenerarGuiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarGuiaActionPerformed
-        // TODO add your handling code here:
+        if (cola.vacia()) {
+            JOptionPane.showMessageDialog(null, "No hay paquetes en la cola de envío.");
+            return;
+        }
+        if (txtFecha.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Debe de ingresar la fecha de generación!");
+            return;
+        }
+        Paquete p = cola.desencolar();
+        GuiaEnvio guia = new GuiaEnvio(p, txtFecha.getText());
+        listaGuias.insertar(guia);
+        JOptionPane.showMessageDialog(null, "Guia generada!");
+        txtFecha.setText("");
+        cargarGuias();
     }//GEN-LAST:event_btnGenerarGuiaActionPerformed
 
     /**
@@ -150,8 +197,10 @@ public class GenerarGuías extends javax.swing.JFrame {
     public javax.swing.JButton btnGenerarGuia;
     public javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTextArea txaGuias;
+    public javax.swing.JTextField txtFecha;
     // End of variables declaration//GEN-END:variables
 }
