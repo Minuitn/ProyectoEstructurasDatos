@@ -15,11 +15,12 @@ public class RegistroPaquete extends javax.swing.JFrame {
      * Creates new form frmRegistroPaquete
      */
     public RegistroPaquete() {
-        initComponents();
+        initComponents();      
     }
     
     public RegistroPaquete(ListaPaquete lista, Menu menu){
         initComponents();
+        comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "estandar", "express", "internacional" }));
         this.lista = lista;
         this.menu = menu;
     }
@@ -33,6 +34,7 @@ public class RegistroPaquete extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        txtTipoEnvio = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -41,8 +43,12 @@ public class RegistroPaquete extends javax.swing.JFrame {
         btnRegistrar = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
         txtDescripcion = new javax.swing.JTextField();
-        txtTipoEnvio = new javax.swing.JTextField();
         txtPeso = new javax.swing.JTextField();
+        comboTipo = new javax.swing.JComboBox<>();
+
+        txtTipoEnvio.setBackground(new java.awt.Color(232, 232, 232));
+        txtTipoEnvio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtTipoEnvio.setForeground(new java.awt.Color(51, 51, 51));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -91,16 +97,21 @@ public class RegistroPaquete extends javax.swing.JFrame {
         txtDescripcion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtDescripcion.setForeground(new java.awt.Color(51, 51, 51));
 
-        txtTipoEnvio.setBackground(new java.awt.Color(232, 232, 232));
-        txtTipoEnvio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtTipoEnvio.setForeground(new java.awt.Color(51, 51, 51));
-
         txtPeso.setBackground(new java.awt.Color(232, 232, 232));
         txtPeso.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtPeso.setForeground(new java.awt.Color(51, 51, 51));
         txtPeso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPesoActionPerformed(evt);
+            }
+        });
+
+        comboTipo.setBackground(new java.awt.Color(232, 232, 232));
+        comboTipo.setForeground(new java.awt.Color(0, 0, 0));
+        comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboTipoActionPerformed(evt);
             }
         });
 
@@ -113,21 +124,21 @@ public class RegistroPaquete extends javax.swing.JFrame {
                 .addGap(50, 50, 50)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                        .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(56, 56, 56))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(comboTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtDescripcion)
-                            .addComponent(txtTipoEnvio)
                             .addComponent(txtPeso, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                        .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(56, 56, 56))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,8 +152,8 @@ public class RegistroPaquete extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtTipoEnvio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(43, 43, 43)
+                    .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(44, 44, 44)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtPeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -170,12 +181,19 @@ public class RegistroPaquete extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        Paquete p = new Paquete(txtDescripcion.getText(), txtTipoEnvio.getText(), Double.parseDouble(txtPeso.getText()));
-        lista.insertar(p);
-        JOptionPane.showMessageDialog(null, "Paquete registrado correctamente");
-        txtDescripcion.setText("");
-        txtTipoEnvio.setText("");
-        txtPeso.setText("");
+        String tipoEnvioSeleccionado = (String) comboTipo.getSelectedItem();
+        try {
+            Paquete p = new Paquete(txtDescripcion.getText(), tipoEnvioSeleccionado, Double.parseDouble(txtPeso.getText()));
+            lista.insertar(p);
+            JOptionPane.showMessageDialog(null, "Paquete registrado correctamente");
+            txtDescripcion.setText("");
+            txtPeso.setText("");
+            comboTipo.setSelectedIndex(0); 
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Error: El peso debe ser un número válido sin letras, se asume que son kg.", "Error de input", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ocurrió un error al registrar el paquete.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void txtPesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesoActionPerformed
@@ -186,6 +204,10 @@ public class RegistroPaquete extends javax.swing.JFrame {
         this.dispose();
         menu.setVisible(true);
     }//GEN-LAST:event_btnVolverActionPerformed
+
+    private void comboTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTipoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboTipoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -215,6 +237,7 @@ public class RegistroPaquete extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnRegistrar;
     public javax.swing.JButton btnVolver;
+    private javax.swing.JComboBox<String> comboTipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
