@@ -25,6 +25,7 @@ public class ApilarPaquete extends javax.swing.JFrame {
         this.pila = pila;
         this.menu = menu;
         cargarPaquetes();
+        mostrarUltimoPaquete();
     }
     private void cargarPaquetes(){
         cmbPaquete.removeAllItems();
@@ -34,6 +35,16 @@ public class ApilarPaquete extends javax.swing.JFrame {
             aux = aux.getSiguiente();
         }
     }
+    
+    private void mostrarUltimoPaquete() {
+        Paquete ultimo = lista.obtenerUltimo();
+        if (ultimo != null) {
+            lblPaquete.setText(ultimo.toString());
+        } else {
+            lblPaquete.setText("No hay paquetes");
+        }
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -44,12 +55,18 @@ public class ApilarPaquete extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        cmbPaquete = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         btnApilar = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
-        cmbPaquete = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
+        lblPaquete = new javax.swing.JLabel();
+
+        cmbPaquete.setBackground(new java.awt.Color(220, 220, 220));
+        cmbPaquete.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cmbPaquete.setForeground(new java.awt.Color(51, 51, 51));
+        cmbPaquete.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,14 +97,13 @@ public class ApilarPaquete extends javax.swing.JFrame {
             }
         });
 
-        cmbPaquete.setBackground(new java.awt.Color(220, 220, 220));
-        cmbPaquete.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cmbPaquete.setForeground(new java.awt.Color(51, 51, 51));
-        cmbPaquete.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel2.setText("Paquete:");
+        jLabel2.setText("Paquete a apilar:");
+
+        lblPaquete.setBackground(new java.awt.Color(255, 255, 255));
+        lblPaquete.setForeground(new java.awt.Color(0, 0, 0));
+        lblPaquete.setText("jLabel3");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -97,12 +113,12 @@ public class ApilarPaquete extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(56, 56, 56)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnApilar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(33, 33, 33)
                         .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(cmbPaquete, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblPaquete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(59, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -112,9 +128,9 @@ public class ApilarPaquete extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(44, 44, 44)
                 .addComponent(jLabel2)
-                .addGap(12, 12, 12)
-                .addComponent(cmbPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(lblPaquete)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnApilar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -136,16 +152,18 @@ public class ApilarPaquete extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnApilarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApilarActionPerformed
-        int index = cmbPaquete.getSelectedIndex();
-        if (index == -1) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un paquete.");
+        Paquete p = lista.eliminarUltimo();
+
+        if (p == null) {
+            JOptionPane.showMessageDialog(null, "No hay paquetes para apilar.");
             return;
         }
-        
-        Paquete p = lista.eliminar(index);
+
         pila.apilar(p);
         JOptionPane.showMessageDialog(null, "El paquete ha sido apilado!");
+
         cargarPaquetes();
+        mostrarUltimoPaquete();
     }//GEN-LAST:event_btnApilarActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
@@ -185,5 +203,6 @@ public class ApilarPaquete extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblPaquete;
     // End of variables declaration//GEN-END:variables
 }

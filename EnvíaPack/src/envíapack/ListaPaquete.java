@@ -75,6 +75,39 @@ public class ListaPaquete {
         this.inicio = inicio;
     }
         
-        
+    public Paquete obtenerUltimo() {
+        if (vacia()) {
+            return null;
+        }
+
+        NodoPaquetes aux = inicio;
+        while (aux.getSiguiente() != null) {
+            aux = aux.getSiguiente();
+        }
+        return aux.getDato();
     }
+    
+    public Paquete eliminarUltimo() {
+        if (vacia()) {
+            return null;
+        }
+
+        if (inicio.getSiguiente() == null) {
+            Paquete p = inicio.getDato();
+            inicio = null;
+            return p;
+        }
+
+        NodoPaquetes aux = inicio;
+        while (aux.getSiguiente().getSiguiente() != null) {
+            aux = aux.getSiguiente();
+        }
+
+        Paquete p = aux.getSiguiente().getDato();
+        aux.setSiguiente(null);
+        return p;
+    }
+
+  
+}
 
