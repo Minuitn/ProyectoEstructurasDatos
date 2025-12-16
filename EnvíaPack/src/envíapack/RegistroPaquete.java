@@ -181,8 +181,19 @@ public class RegistroPaquete extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        String descripcion = txtDescripcion.getText().trim();
+        String pesoTexto = txtPeso.getText().trim();
         String tipoEnvioSeleccionado = (String) comboTipo.getSelectedItem();
         try {
+            if (descripcion.isEmpty() || pesoTexto.isEmpty() || tipoEnvioSeleccionado.isEmpty()){
+                JOptionPane.showMessageDialog(
+                    null,
+                    "Ninguno de los campos puede estar vacio.",
+                    "Campos vacíos",
+                JOptionPane.WARNING_MESSAGE
+                );
+                return;
+            }
             Paquete p = new Paquete(txtDescripcion.getText(), tipoEnvioSeleccionado, Double.parseDouble(txtPeso.getText()));
             lista.insertar(p);
             JOptionPane.showMessageDialog(null, "Paquete registrado correctamente");
